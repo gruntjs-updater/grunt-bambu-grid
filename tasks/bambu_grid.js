@@ -40,7 +40,16 @@ module.exports = function (grunt) {
 			var rules = [];
 			var columnWidth = 100 / options.columns;
 			var halfGutter = options.gutter / 2;
+			var mqNames = Object.keys(options.mediaQueries);
 
+			var columnSelectors = [];
+			for (var i = options.columns; i > 0; i--) {
+				mqNames.forEach(function (name, index) {
+					columnSelectors.push(columnSelector + '-' + name + '-' + i);
+				});
+			}
+
+			// Box model.
 			rules.push({
 				type: 'rule',
 				selectors: [
@@ -63,10 +72,11 @@ module.exports = function (grunt) {
 						type: 'declaration',
 						property: 'box-sizing',
 						value: 'border-box'
-					},
+					}
 				]
 			});
 
+			// Default row.
 			rules.push({
 				type: 'rule',
 				selectors: [rowSelector],
@@ -80,15 +90,11 @@ module.exports = function (grunt) {
 						type: 'declaration',
 						property: 'margin',
 						value: '0 auto'
-					},
-//					{
-//						type: 'declaration',
-//						property: 'max-width',
-//						value: '64em'
-//					}
+					}
 				]
 			});
 
+			// Row clearfix.
 			rules.push({
 				type: 'rule',
 				selectors: [
@@ -108,7 +114,6 @@ module.exports = function (grunt) {
 					}
 				]
 			});
-
 			rules.push({
 				type: 'rule',
 				selectors: [rowSelector + ':after'],
@@ -121,40 +126,7 @@ module.exports = function (grunt) {
 				]
 			});
 
-			rules.push({
-				type: 'rule',
-				selectors: [rowSelector + '.collapse > ' + columnSelector],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'padding-left',
-						value: 0
-					},
-					{
-						type: 'declaration',
-						property: 'padding-right',
-						value: 0
-					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [rowSelector + '.collapse ' + rowSelector],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'margin-left',
-						value: 0
-					},
-					{
-						type: 'declaration',
-						property: 'margin-right',
-						value: 0
-					}
-				]
-			});
-
+			// Nested rows.
 			rules.push({
 				type: 'rule',
 				selectors: [rowSelector + ' ' + rowSelector],
@@ -168,121 +140,28 @@ module.exports = function (grunt) {
 						type: 'declaration',
 						property: 'margin',
 						value: '0 -' + halfGutter + options.unit
-					},
-//					{
-//						type: 'declaration',
-//						property: 'max-width',
-//						value: 'none'
-//					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [
-					rowSelector + ' ' + rowSelector + ':before',
-					rowSelector + ' ' + rowSelector + ':after'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'content',
-						value: '" "'
-					},
-					{
-						type: 'declaration',
-						property: 'display',
-						value: 'table'
 					}
 				]
 			});
 
+			// Default column.
 			rules.push({
 				type: 'rule',
-				selectors: [
-					rowSelector + ' ' + rowSelector + ':after'
-				],
+				selectors: columnSelectors,
 				declarations: [
 					{
 						type: 'declaration',
-						property: 'clear',
-						value: 'both'
-					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [
-					rowSelector + ' ' + rowSelector + '.collapse'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'width',
-						value: 'auto'
-					},
-					{
-						type: 'declaration',
-						property: 'margin',
-						value: 0
-					},
-//					{
-//						type: 'declaration',
-//						property: 'max-width',
-//						value: 'none'
-//					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [
-					rowSelector + ' ' + rowSelector + '.collapse:before',
-					rowSelector + ' ' + rowSelector + '.collapse:after'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'content',
-						value: '" "'
-					},
-					{
-						type: 'declaration',
-						property: 'display',
-						value: 'table'
-					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [
-					rowSelector + ' ' + rowSelector + '.collapse:after'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'clear',
-						value: 'both'
-					}
-				]
-			});
-
-			rules.push({
-				type: 'rule',
-				selectors: [
-					columnSelector
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'padding-left',
-						value: halfGutter + options.unit
+						property: 'position',
+						value: 'relative'
 					},
 					{
 						type: 'declaration',
 						property: 'padding-right',
+						value: halfGutter + options.unit
+					},
+					{
+						type: 'declaration',
+						property: 'padding-left',
 						value: halfGutter + options.unit
 					},
 					{
@@ -292,111 +171,53 @@ module.exports = function (grunt) {
 					},
 					{
 						type: 'declaration',
-						property: 'float',
-						value: 'left'
+						property: 'min-height',
+						value: '1px'
 					}
 				]
 			});
 
-			rules.push({
-				type: 'rule',
-				selectors: [
-					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"]:last-child'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'float',
-						value: 'right'
-					}
-				]
-			});
+//			// Incomplete rows.
+//			rules.push({
+//				type: 'rule',
+//				selectors: [
+//					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"]:last-child'
+//				],
+//				declarations: [
+//					{
+//						type: 'declaration',
+//						property: 'float',
+//						value: 'right'
+//					}
+//				]
+//			});
+//			rules.push({
+//				type: 'rule',
+//				selectors: [
+//					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"].end'
+//				],
+//				declarations: [
+//					{
+//						type: 'declaration',
+//						property: 'float',
+//						value: 'left'
+//					}
+//				]
+//			});
 
-			rules.push({
-				type: 'rule',
-				selectors: [
-					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"].end'
-				],
-				declarations: [
-					{
-						type: 'declaration',
-						property: 'float',
-						value: 'left'
-					}
-				]
-			});
-
-			Object.keys(options.mediaQueries).forEach(function (name, index) {
+			mqNames.forEach(function (name, index) {
 				var i, x;
 				var mediaRules = [];
+				var selectors = [];
 
-				for (i = 0; i < options.columns; i++) {
-					x = columnWidth * i;
-
-					mediaRules.push({
-						type: 'rule',
-						selectors: ['.' + name + '-push-' + i],
-						declarations: [
-							{
-								type: 'declaration',
-								property: 'position',
-								value: 'relative'
-							},
-							{
-								type: 'declaration',
-								property: 'left',
-								value: toFixed(x, options.decimals) + '%'
-							},
-							{
-								type: 'declaration',
-								property: 'right',
-								value: 'auto'
-							}
-						]
-					});
-
-					mediaRules.push({
-						type: 'rule',
-						selectors: ['.' + name + '-pull-' + i],
-						declarations: [
-							{
-								type: 'declaration',
-								property: 'position',
-								value: 'relative'
-							},
-							{
-								type: 'declaration',
-								property: 'right',
-								value: toFixed(x, options.decimals) + '%'
-							},
-							{
-								type: 'declaration',
-								property: 'left',
-								value: 'auto'
-							}
-						]
-					});
+				for (i = options.columns; i > 0; i--) {
+					selectors.push(columnSelector + '-' + name + '-' + i);
 				}
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: [columnSelector],
+					selectors: selectors,
 					declarations: [
-						{
-							type: 'declaration',
-							property: 'position',
-							value: 'relative'
-						},
-						{
-							type: 'declaration',
-							property: 'padding-left',
-							value: halfGutter + options.unit
-						},
-						{
-							type: 'declaration',
-							property: 'padding-right',
-							value: halfGutter + options.unit
-						},
 						{
 							type: 'declaration',
 							property: 'float',
@@ -405,261 +226,101 @@ module.exports = function (grunt) {
 					]
 				});
 
-				for (i = 0; i < options.columns; i++) {
-					x = columnWidth * (i + 1);
-
-					mediaRules.push({
-						type: 'rule',
-						selectors: ['.' + name + '-' + (i + 1)],
-						declarations: [
-							{
-								type: 'declaration',
-								property: 'width',
-								value: toFixed(x, options.decimals) + '%'
-							}
-						]
-					});
-				}
-
-				for (i = 0; i < options.columns; i++) {
+				for (i = options.columns; i >= 0; i--) {
 					x = columnWidth * i;
 
+					if (i > 0) {
+						// Width.
+						mediaRules.push({
+							type: 'rule',
+							selectors: [columnSelector + '-' + name + '-' + i],
+							declarations: [
+								{
+									type: 'declaration',
+									property: 'width',
+									value: toFixed(x, options.decimals) + '%'
+								}
+							]
+						});
+
+						// Pull.
+						mediaRules.push({
+							type: 'rule',
+							selectors: [columnSelector + '-' + name + '-pull-' + i],
+							declarations: [
+								{
+									type: 'declaration',
+									property: 'right',
+									value: toFixed(x, options.decimals) + '%'
+								}
+							]
+						});
+
+						// Push.
+						mediaRules.push({
+							type: 'rule',
+							selectors: [columnSelector + '-' + name + '-push-' + i],
+							declarations: [
+								{
+									type: 'declaration',
+									property: 'left',
+									value: toFixed(x, options.decimals) + '%'
+								}
+							]
+						});
+					}
+					else {
+						// Pull.
+						mediaRules.push({
+							type: 'rule',
+							selectors: [columnSelector + '-' + name + '-pull-' + i],
+							declarations: [
+								{
+									type: 'declaration',
+									property: 'right',
+									value: 'auto'
+								}
+							]
+						});
+
+						// Push.
+						mediaRules.push({
+							type: 'rule',
+							selectors: [columnSelector + '-' + name + '-push-' + i],
+							declarations: [
+								{
+									type: 'declaration',
+									property: 'left',
+									value: 'auto'
+								}
+							]
+						});
+					}
+
+					// Offset.
 					mediaRules.push({
 						type: 'rule',
-						selectors: ['.' + name + '-offset-' + i],
+						selectors: [columnSelector + '-' + name + '-offset-' + i],
 						declarations: [
 							{
 								type: 'declaration',
 								property: 'margin-left',
-								value: toFixed(x, options.decimals) + '%' + ' !important'
+								value: toFixed(x, options.decimals) + '%'
 							}
 						]
 					});
 				}
 
-				mediaRules.push({
-					type: 'rule',
-					selectors: ['.' + name + '-reset-order'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'margin-left',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'margin-right',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'left',
-							value: 'auto'
-						},
-						{
-							type: 'declaration',
-							property: 'right',
-							value: 'auto'
-						},
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'left'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [columnSelector + '.' + name + '-centered'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'margin-left',
-							value: 'auto'
-						},
-						{
-							type: 'declaration',
-							property: 'margin-right',
-							value: 'auto'
-						},
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'none'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [columnSelector + '.' + name + '-uncentered'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'margin-left',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'margin-right',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'left'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [columnSelector + '.' + name + '-centered:last-child'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'none'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [columnSelector + '.' + name + '-uncentered:last-child'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'left'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [columnSelector + '.' + name + '-uncentered.opposite'],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'right'
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [rowSelector + '.' + name + '-collapse > ' + columnSelector],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'padding-left',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'padding-right',
-							value: 0
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [rowSelector + '.' + name + '-collapse ' + rowSelector],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'margin-left',
-							value: 0
-						},
-						{
-							type: 'declaration',
-							property: 'margin-right',
-							value: 0
-						}
-					]
-				});
-
-				mediaRules.push({
-					type: 'rule',
-					selectors: [rowSelector + '.' + name + '-uncollapse > ' + columnSelector],
-					declarations: [
-						{
-							type: 'declaration',
-							property: 'padding-left',
-							value: halfGutter + options.unit
-						},
-						{
-							type: 'declaration',
-							property: 'padding-right',
-							value: halfGutter + options.unit
-						},
-						{
-							type: 'declaration',
-							property: 'float',
-							value: 'left'
-						}
-					]
-				});
-
-				if (index > 0) {
-					for (i = 0; i < options.columns; i++) {
-						x = columnWidth * i;
-
-						mediaRules.push({
-							type: 'rule',
-							selectors: ['.push-' + i],
-							declarations: [
-								{
-									type: 'declaration',
-									property: 'position',
-									value: 'relative'
-								},
-								{
-									type: 'declaration',
-									property: 'left',
-									value: toFixed(x, options.decimals) + '%'
-								},
-								{
-									type: 'declaration',
-									property: 'right',
-									value: 'auto'
-								}
-							]
-						});
-
-						mediaRules.push({
-							type: 'rule',
-							selectors: ['.pull-' + i],
-							declarations: [
-								{
-									type: 'declaration',
-									property: 'position',
-									value: 'relative'
-								},
-								{
-									type: 'declaration',
-									property: 'right',
-									value: toFixed(x, options.decimals) + '%'
-								},
-								{
-									type: 'declaration',
-									property: 'left',
-									value: 'auto'
-								}
-							]
-						});
-					}
+				if (index === 0) {
+					rules = rules.concat(mediaRules);
 				}
-
-				rules.push({
-					type: 'media',
-					media: options.mediaQueries[name],
-					rules: mediaRules
-				});
+				else {
+					rules.push({
+						type: 'media',
+						media: options.mediaQueries[name],
+						rules: mediaRules
+					});
+				}
 			});
 
 			var obj = {

@@ -37,10 +37,11 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 0.1.1 Switch to Bootstrap-style grid
 * 0.1.0 First release
 
 ## Credits
-* CSS and test page from [Foundation](https://github.com/zurb/foundation) (ZURB, inc., MIT license)
+* CSS from [Bootstrap](https://github.com/twbs/bootstrap) (Twitter, Inc., MIT license)
 
 ## License
 Copyright (c) 2015 Hein Bekker. Licensed under the MIT license.

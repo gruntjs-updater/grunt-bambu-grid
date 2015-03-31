@@ -1,7 +1,7 @@
 {
   "name": "grunt-bambu-grid",
   "description": "Grunt plugin to generate CSS grids",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/netbek/grunt-bambu-grid",
   "author": {
     "name": "Hein Bekker",
