@@ -25,8 +25,10 @@ module.exports = function (grunt) {
 			mediaQueries: {}
 		});
 
-		var rowSelector = '.' + options.rowClass;
-		var columnSelector = '.' + options.columnClass;
+		var rowClass = options.rowClass;
+		var rowSelector = '.' + rowClass;
+		var columnClass = options.columnClass;
+		var columnSelector = '.' + columnClass;
 
 		// Iterate over all specified file groups.
 		this.files.forEach(function (fileGroup) {
@@ -299,7 +301,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'[class*="' + options.columnClass + '"] + [class*="' + options.columnClass + '"]:last-child'
+					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"]:last-child'
 				],
 				declarations: [
 					{
@@ -313,7 +315,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'[class*="' + options.columnClass + '"] + [class*="' + options.columnClass + '"].end'
+					'[class*="' + columnClass + '"] + [class*="' + columnClass + '"].end'
 				],
 				declarations: [
 					{
