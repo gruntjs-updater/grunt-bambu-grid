@@ -8,6 +8,7 @@
 
 'use strict';
 
+var chalk = require('chalk');
 var css = require('css');
 
 module.exports = function (grunt) {
@@ -27,7 +28,7 @@ module.exports = function (grunt) {
 		// Iterate over all specified file groups.
 		this.files.forEach(function (fileGroup) {
 			grunt.file.write(fileGroup.dest, build(options));
-			grunt.log.writeln('File "' + fileGroup.dest + '" created.');
+			grunt.log.writeln('File ' + chalk.cyan(fileGroup.dest) + ' created');
 		});
 
 		function build (options) {
