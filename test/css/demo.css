@@ -1,0 +1,20 @@
+body {
+	padding: 5%;
+}
+
+.row {
+	margin-bottom: 1em;
+}
+
+.column {
+	background: #007FFF;
+	color: #FFF;
+}
+
+.column .column {
+	background: #0066CC;
+}
+
+.column .column .column {
+	background: #003366;
+}

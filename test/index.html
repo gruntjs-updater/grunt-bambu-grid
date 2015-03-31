@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>grunt-bambu-grid</title>
+		<link rel="stylesheet" href="../node_modules/normalize.css/normalize.css" />
+		<link rel="stylesheet" href="css/grid.css" />
+		<link rel="stylesheet" href="css/demo.css" />
+	</head>
+	<body>
+
+		<h2>Nested grids</h2>
+
+		<div class="row">
+			<div class="xsmall-8 column">8
+				<div class="row">
+					<div class="xsmall-8 column">8 Nested
+						<div class="row">
+							<div class="xsmall-8 column">8 Nested Again</div>
+							<div class="xsmall-4 column">4</div>
+						</div>
+					</div>
+					<div class="xsmall-4 column">4</div>
+				</div>
+			</div>
+			<div class="xsmall-4 column">4</div>
+		</div>
+
+		<h2>Offsets</h2>
+
+		<div class="row">
+			<div class="medium-1 column">1</div>
+			<div class="medium-11 column">11</div>
+		</div>
+		<div class="row">
+			<div class="medium-1 column">1</div>
+			<div class="medium-10 medium-offset-1 column">10, offset 1</div>
+		</div>
+		<div class="row">
+			<div class="medium-1 column">1</div>
+			<div class="medium-9 medium-offset-2 column">9, offset 2</div>
+		</div>
+		<div class="row">
+			<div class="medium-1 column">1</div>
+			<div class="medium-8 medium-offset-3 column">8, offset 3</div>
+		</div>
+
+		<h2>Incomplete rows</h2>
+
+		<div class="row">
+			<div class="small-3 column">3</div>
+			<div class="small-3 column">3</div>
+			<div class="small-3 column">3</div>
+		</div>
+		<div class="row">
+			<div class="small-3 column">3</div>
+			<div class="small-3 column">3</div>
+			<div class="small-3 column end">3 end</div>
+		</div>
+
+		<h2>Collapse/uncollapse rows</h2>
+
+		<div class="row small-uncollapse medium-collapse">
+			<div class="xsmall-6 column">
+				<div class="panel">
+					<p class="show-for-small-only">On a small screen, I have gutters!</p>
+					<p class="show-for-medium-up">On a medium screen, I have no gutters!</p>
+				</div>
+			</div>
+			<div class="xsmall-6 column">
+				<div class="panel">
+					<p class="show-for-small-only">On a small screen, I have gutters!</p>
+					<p class="show-for-medium-up">On a medium screen, I have no gutters!</p>
+				</div>
+			</div>
+		</div>
+
+		<h2>Centered columns</h2>
+
+		<div class="row">
+			<div class="xsmall-3 xsmall-centered column">3 centered</div>
+		</div>
+		<div class="row">
+			<div class="xsmall-6 medium-centered column">6 centered, large</div>
+		</div>
+		<div class="row">
+			<div class="xsmall-9 xsmall-centered medium-uncentered column">9 centered small</div>
+		</div>
+		<div class="row">
+			<div class="xsmall-11 xsmall-centered column">11 centered</div>
+		</div>
+
+		<h2>Source ordering</h2>
+
+		<div class="row">
+			<div class="xsmall-10 xsmall-push-2 column">10</div>
+			<div class="xsmall-2 xsmall-pull-10 column">2, last</div>
+		</div>
+		<div class="row">
+			<div class="medium-9 medium-push-3 column">9</div>
+			<div class="medium-3 medium-pull-9 column">3, last</div>
+		</div>
+		<div class="row">
+			<div class="medium-8 medium-push-4 column">8</div>
+			<div class="medium-4 medium-pull-8 column">4, last</div>
+		</div>
+		<div class="row">
+			<div class="xsmall-5 xsmall-push-7 small-7 small-push-5 column">7</div>
+			<div class="xsmall-7 xsmall-pull-5 small-5 small-pull-7 column">5, last</div>
+		</div>
+		<div class="row">
+			<div class="small-6 small-push-6 column">6</div>
+			<div class="small-6 small-pull-6 column">6, last</div>
+		</div>
+
+	</body>
+</html>
