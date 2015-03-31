@@ -25,6 +25,9 @@ module.exports = function (grunt) {
 			mediaQueries: {}
 		});
 
+		var rowSelector = '.' + options.rowClass;
+		var columnSelector = '.' + options.columnClass;
+
 		// Iterate over all specified file groups.
 		this.files.forEach(function (fileGroup) {
 			grunt.file.write(fileGroup.dest, build(options));
@@ -64,7 +67,7 @@ module.exports = function (grunt) {
 
 			rules.push({
 				type: 'rule',
-				selectors: ['.' + options.rowClass],
+				selectors: [rowSelector],
 				declarations: [
 					{
 						type: 'declaration',
@@ -87,8 +90,8 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ':before',
-					'.' + options.rowClass + ':after'
+					rowSelector + ':before',
+					rowSelector + ':after'
 				],
 				declarations: [
 					{
@@ -106,7 +109,7 @@ module.exports = function (grunt) {
 
 			rules.push({
 				type: 'rule',
-				selectors: ['.' + options.rowClass + ':after'],
+				selectors: [rowSelector + ':after'],
 				declarations: [
 					{
 						type: 'declaration',
@@ -118,7 +121,7 @@ module.exports = function (grunt) {
 
 			rules.push({
 				type: 'rule',
-				selectors: ['.' + options.rowClass + '.collapse > .' + options.columnClass],
+				selectors: [rowSelector + '.collapse > ' + columnSelector],
 				declarations: [
 					{
 						type: 'declaration',
@@ -135,7 +138,7 @@ module.exports = function (grunt) {
 
 			rules.push({
 				type: 'rule',
-				selectors: ['.' + options.rowClass + '.collapse .' + options.rowClass],
+				selectors: [rowSelector + '.collapse ' + rowSelector],
 				declarations: [
 					{
 						type: 'declaration',
@@ -152,7 +155,7 @@ module.exports = function (grunt) {
 
 			rules.push({
 				type: 'rule',
-				selectors: ['.' + options.rowClass + ' .' + options.rowClass],
+				selectors: [rowSelector + ' ' + rowSelector],
 				declarations: [
 					{
 						type: 'declaration',
@@ -175,8 +178,8 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ' .' + options.rowClass + ':before',
-					'.' + options.rowClass + ' .' + options.rowClass + ':after'
+					rowSelector + ' ' + rowSelector + ':before',
+					rowSelector + ' ' + rowSelector + ':after'
 				],
 				declarations: [
 					{
@@ -195,7 +198,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ' .' + options.rowClass + ':after'
+					rowSelector + ' ' + rowSelector + ':after'
 				],
 				declarations: [
 					{
@@ -209,7 +212,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ' .' + options.rowClass + '.collapse'
+					rowSelector + ' ' + rowSelector + '.collapse'
 				],
 				declarations: [
 					{
@@ -233,8 +236,8 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ' .' + options.rowClass + '.collapse:before',
-					'.' + options.rowClass + ' .' + options.rowClass + '.collapse:after'
+					rowSelector + ' ' + rowSelector + '.collapse:before',
+					rowSelector + ' ' + rowSelector + '.collapse:after'
 				],
 				declarations: [
 					{
@@ -253,7 +256,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.rowClass + ' .' + options.rowClass + '.collapse:after'
+					rowSelector + ' ' + rowSelector + '.collapse:after'
 				],
 				declarations: [
 					{
@@ -267,7 +270,7 @@ module.exports = function (grunt) {
 			rules.push({
 				type: 'rule',
 				selectors: [
-					'.' + options.columnClass
+					columnSelector
 				],
 				declarations: [
 					{
@@ -375,7 +378,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass],
+					selectors: [columnSelector],
 					declarations: [
 						{
 							type: 'declaration',
@@ -466,7 +469,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass + '.' + name + '-centered'],
+					selectors: [columnSelector + '.' + name + '-centered'],
 					declarations: [
 						{
 							type: 'declaration',
@@ -488,7 +491,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass + '.' + name + '-uncentered'],
+					selectors: [columnSelector + '.' + name + '-uncentered'],
 					declarations: [
 						{
 							type: 'declaration',
@@ -510,7 +513,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass + '.' + name + '-centered:last-child'],
+					selectors: [columnSelector + '.' + name + '-centered:last-child'],
 					declarations: [
 						{
 							type: 'declaration',
@@ -522,7 +525,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass + '.' + name + '-uncentered:last-child'],
+					selectors: [columnSelector + '.' + name + '-uncentered:last-child'],
 					declarations: [
 						{
 							type: 'declaration',
@@ -534,7 +537,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.columnClass + '.' + name + '-uncentered.opposite'],
+					selectors: [columnSelector + '.' + name + '-uncentered.opposite'],
 					declarations: [
 						{
 							type: 'declaration',
@@ -546,7 +549,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.rowClass + '.' + name + '-collapse > ' + '.' + options.columnClass],
+					selectors: [rowSelector + '.' + name + '-collapse > ' + columnSelector],
 					declarations: [
 						{
 							type: 'declaration',
@@ -563,7 +566,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.rowClass + '.' + name + '-collapse ' + '.' + options.rowClass],
+					selectors: [rowSelector + '.' + name + '-collapse ' + rowSelector],
 					declarations: [
 						{
 							type: 'declaration',
@@ -580,7 +583,7 @@ module.exports = function (grunt) {
 
 				mediaRules.push({
 					type: 'rule',
-					selectors: ['.' + options.rowClass + '.' + name + '-uncollapse > ' + '.' + options.columnClass],
+					selectors: [rowSelector + '.' + name + '-uncollapse > ' + columnSelector],
 					declarations: [
 						{
 							type: 'declaration',
