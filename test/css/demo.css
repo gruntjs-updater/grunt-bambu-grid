@@ -6,15 +6,15 @@ body {
 	margin-bottom: 1em;
 }
 
-.column {
+.col {
 	background: #007FFF;
 	color: #FFF;
 }
 
-.column .column {
+.col .col {
 	background: #0066CC;
 }
 
-.column .column .column {
+.col .col .col {
 	background: #003366;
 }

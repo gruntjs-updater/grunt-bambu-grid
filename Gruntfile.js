@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 					unit: 'em',
 					decimals: 5,
 					rowClass: 'row',
-					columnClass: 'column',
+					columnClass: 'col',
 					mediaQueries: {
 						xs: 'screen and (min-width: 0em)', // 0px
 						sm: 'screen and (min-width: 40em)', // 640px
